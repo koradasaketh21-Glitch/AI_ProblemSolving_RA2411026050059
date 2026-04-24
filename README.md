@@ -14,6 +14,11 @@
 - Solves puzzles like SEND + MORE = MONEY
 - Algorithm Used: Constraint Satisfaction using permutations
 
+## Algorithms Used
+- Constraint Satisfaction Problem (CSP)
+- Backtracking
+- Permutation Search
+  
 ## How to Run
 
 Run the following files:
