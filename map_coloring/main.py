@@ -1,13 +1,9 @@
-regions = ['A', 'B', 'C', 'D']
-
-neighbors = {
-    'A': ['B', 'C'],
-    'B': ['A', 'C', 'D'],
-    'C': ['A', 'B', 'D'],
-    'D': ['B', 'C']
-}
-
+regions = input("Enter regions (comma separated): ").split(',')
 colors = ['Red', 'Green', 'Blue']
+
+neighbors = {}
+for r in regions:
+    neighbors[r] = input(f"Enter neighbors of {r} (comma separated): ").split(',')
 
 def is_valid(region, color, assignment):
     for neighbor in neighbors[region]:
@@ -22,17 +18,19 @@ def backtrack(assignment):
     unassigned = [r for r in regions if r not in assignment][0]
 
     for color in colors:
-        if is_valid(unassigned, color, assignment):------
+        print(f"Trying {unassigned} → {color}")
+        if is_valid(unassigned, color, assignment):
             assignment[unassigned] = color
             result = backtrack(assignment)
             if result:
                 return result
+            print(f"Backtracking on {unassigned}")
             del assignment[unassigned]
 
     return None
 
 solution = backtrack({})
 
-print("Map Coloring Solution:")
+print("\nFinal Solution:")
 for region, color in solution.items():
-    print(region, "→", color)=
+    print(f"{region} is colored {color}")
