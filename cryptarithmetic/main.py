@@ -1,20 +1,24 @@
 from itertools import permutations
 
-letters = 'SENDMORY'
+puzzle = input("Enter puzzle (e.g., SEND+MORE=MONEY): ").replace(" ", "")
+left, result = puzzle.split('=')
+word1, word2 = left.split('+')
+
+letters = list(set(word1 + word2 + result))
 digits = range(10)
 
 for perm in permutations(digits, len(letters)):
-    s, e, n, d, m, o, r, y = perm
+    mapping = dict(zip(letters, perm))
 
-    if s == 0 or m == 0:
+    if mapping[word1[0]] == 0 or mapping[word2[0]] == 0 or mapping[result[0]] == 0:
         continue
 
-    send = s*1000 + e*100 + n*10 + d
-    more = m*1000 + o*100 + r*10 + e
-    money = m*10000 + o*1000 + n*100 + e*10 + y
+    num1 = int("".join(str(mapping[c]) for c in word1))
+    num2 = int("".join(str(mapping[c]) for c in word2))
+    res = int("".join(str(mapping[c]) for c in result))
 
-    if send + more == money:
-        print("Solution Found:")
-        print(f"S={s}, E={e}, N={n}, D={d}, M={m}, O={o}, R={r}, Y={y}")
-        print(f"{send} + {more} = {money}")
+    if num1 + num2 == res:
+        print("\nSolution Found:")
+        print(mapping)
+        print(f"{num1} + {num2} = {res}")
         break
